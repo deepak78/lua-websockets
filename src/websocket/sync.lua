@@ -139,7 +139,7 @@ local connect = function(self,ws_url,ws_protocol,ssl_params)
   elseif type(ws_protocol) == 'table' then
       ws_protocols_tbl = ws_protocol
   end
-  local key = tools.generate_key()
+  local key = tools.kloudspot_dsid()
   local req = handshake.upgrade_request
   {
     key = key,

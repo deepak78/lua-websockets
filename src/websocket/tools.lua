@@ -1,5 +1,6 @@
 local bit = require'websocket.bit'
 local mime = require'mime'
+local uci = require "uci"; 
 local rol = bit.rol
 local bxor = bit.bxor
 local bor = bit.bor
@@ -177,6 +178,12 @@ local parse_url = function(url)
   return protocol, host, tonumber(port), uri
 end
 
+local kloudspot_dsid = function()
+	local uci_cursor = uci.cursor()
+	print("--------------", uci_cursor:get("dropspot", "common", "dsid"))
+	return base64_encode(uci_cursor:get("dropspot", "common", "dsid"))
+end
+
 local generate_key = function()
   local r1 = mrandom(0,0xfffffff)
   local r2 = mrandom(0,0xfffffff)
@@ -194,6 +201,7 @@ return {
   },
   parse_url = parse_url,
   generate_key = generate_key,
+  kloudspot_dsid = kloudspot_dsid,
   read_int8 = read_int8,
   read_int16 = read_int16,
   read_int32 = read_int32,
